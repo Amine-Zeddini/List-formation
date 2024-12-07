@@ -1,0 +1,19 @@
+<section class="image-container">
+  <div class="overlay">
+    <h1>Liste des sessions de formations</h1>
+    <p class="description">Suivre les sessions que je veux participer.</p>
+    <p *ngIf="sessions.length === 0; else sessionList">Aucune session n'est disponible</p>
+    <ng-template #sessionList>
+      <ul *ngFor="let session of sessions">
+        <li> {{ session.name }} - {{ session.dateDebut }} - {{ session.local }} </li>
+      </ul>
+    </ng-template>
+  </div>
+</section>
+
+<section >
+ 
+  <app-session-item-list (totalParticipantsChanged)="updateTotalParticipants($event)"></app-session-item-list>
+
+  <h3> Nbr total de participants : {{ totalParticipants }} </h3>
+</section>

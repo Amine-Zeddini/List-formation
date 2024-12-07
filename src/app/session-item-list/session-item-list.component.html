@@ -1,0 +1,15 @@
+<section *ngFor="let session of sessionItems; let i = index">
+    <app-session-item
+      [name]="session.name"
+      [local]="session.local"
+      [description]="session.track"
+      [date]="session.date"
+      [nbrParticipant]="session.nbrParticipant"
+      (inscription)="handleParticipantChange(i, $event)"
+      [ngClass]="{
+        'session-web': session.name === 'Web',
+        'session-mobile': session.name === 'Mobile'
+      }"
+    ></app-session-item>
+  </section>
+  

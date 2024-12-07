@@ -1,0 +1,65 @@
+<h2 [title]="name" [style.color]="couleur">{{name}}</h2>
+<div [ngStyle]="{'color': couleur}">{{description}}</div>
+<div>Prévue au {{date | date: 'dd MM, yyyy'}} </div>
+<div>{{local}}</div>
+<div>{{nbrParticipant}} Participants</div>
+<div class="tools">
+
+  <a class="delete"> Details </a>
+  <a
+    class="inscrire"
+    [appInscriptionDisabled]="nbrParticipant >= 20"
+    (click)="inscrire()"
+  >
+    Inscription
+  </a>
+  <a class="partager"> Partager </a>
+</div>
+<div>
+  <p *ngIf="nbrParticipant >= maxParticipants">Session complète</p>
+  <p *ngIf="nbrParticipant < maxParticipants">
+    Encore {{ placesRestantes }} places sont disponibles
+  </p>
+</div>
+
+<label>Mode de formation :</label>
+<div>
+  <input 
+    type="radio" 
+    id="online" 
+    name="mode" 
+    [(ngModel)]="selectedMode" 
+    value="En ligne"
+    (change)="onModeChange()" 
+  />
+  <label 
+    for="online" 
+    [appTextColor]="selectedMode === 'En ligne' ? 'blue' : 'black'"
+  >
+    En ligne
+  </label>
+  
+  <input 
+    type="radio" 
+    id="in-person" 
+    name="mode" 
+    [(ngModel)]="selectedMode" 
+    value="Présentiel"
+    (change)="onModeChange()" 
+  />
+  <label 
+    for="in-person" 
+    [appTextColor]="selectedMode === 'Présentiel' ? 'green' : 'black'"
+  >
+    Présentiel
+  </label>
+</div>
+
+<p>Mode sélectionné : <span [appTextColor]="selectedMode === 'En ligne' ? 'blue' : selectedMode === 'Présentiel' ? 'green' : 'black'">{{ selectedMode }}</span></p>
+
+
+<h3>Choisissez un formateur :</h3>
+<select id="formateur-select" (change)="onFormateurSelect($event)">
+  <option *ngFor="let formateur of formateurs" [value]="formateur">{{ formateur }}</option>
+</select>
+<p>Formateur séléctionné: {{selectedFormateur}} </p>
